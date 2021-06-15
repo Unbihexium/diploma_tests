@@ -21,5 +21,5 @@ class TailorQuestion(BasicQuestion):
     pass
 
 
-class EmotionalBurnoutQuestions(BasicQuestion):
+class EmotionalBurnoutQuestion(BasicQuestion):
     pass
