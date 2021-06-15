@@ -19,3 +19,7 @@ class PSM25Question(BasicQuestion):
 
 class TailorQuestion(BasicQuestion):
     pass
+
+
+class EmotionalBurnoutQuestions(BasicQuestion):
+    pass
