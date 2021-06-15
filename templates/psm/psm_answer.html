@@ -1,5 +1,5 @@
 {% for number in '12345678'|make_list %}
-<div class="btn btn-primary answer">
+<div class="btn btn-primary answer" score="{{ number }}">
     {{ number }}
 </div>
 {% endfor%}

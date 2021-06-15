@@ -10,17 +10,18 @@ $(document).ready(function (){
                 beforeSend: function (request){
                     request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                 },
+                data: {
+                    'score': $this.attr('score')
+                },
                 success: function (){
-                    console.log('success')
+                    let nextContainer = container.next();
+                    if (nextContainer.length == 1){
+                        nextContainer.removeClass('d-none');
+                    } else {
+                        window.location.href = '/psm25-result/';
+                    }
                 }
             })
-            let nextContainer = container.next();
-            if (nextContainer.length == 1){
-                nextContainer.removeClass('d-none');
-            } else {
-                //finish test
-                console.log('test finished')
-            }
         }
     )
 })

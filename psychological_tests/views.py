@@ -35,7 +35,7 @@ class PSM25UserAnswerView(View):
     def post(self, request):
         PSM25UserAnswer.objects.create(
             test_id=request.session['test_id'],
-            answer='1',
+            answer=int(request.POST.get('score', 0)),
         )
         return JsonResponse({'status': 'success'})
 
