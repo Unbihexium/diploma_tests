@@ -6,19 +6,19 @@ $(document).ready(function (){
             container.addClass('d-none');
             $.ajax({
                 type: 'POST',
-                url: '/psm25-answer/',
-                beforeSend: function (request){
+                url: '/answer/',
+                beforeSend: function (request) {
                     request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                 },
                 data: {
                     'score': $this.attr('score')
                 },
-                success: function (){
+                success: function () {
                     let nextContainer = container.next();
-                    if (nextContainer.length == 1){
+                    if (nextContainer.length == 1) {
                         nextContainer.removeClass('d-none');
                     } else {
-                        window.location.href = '/psm25-result/';
+                        window.location.href = result_url;
                     }
                 }
             })

@@ -22,6 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main, name='main'),
     path('psm25/', views.PSM25TestView.as_view(), name='psm25'),
-    path('psm25-answer/', views.PSM25UserAnswerView.as_view(), name='psm25-answer'),
+    path('answer/', views.UserAnswerView.as_view(), name='answer'),
     path('psm25-result/', views.PSM25ResultView.as_view(), name='psm25-result'),
+    path('tailor/', views.TailorTestView.as_view(), name='tailor'),
+    path('tailor-result/', views.TailorResultView.as_view(), name='tailor-result'),
+
 ]

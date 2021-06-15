@@ -14,11 +14,14 @@
     <link href="{% static 'external/css/bootstrap.css' %}" rel="stylesheet">
     <script src="{% static 'external/js/bootstrap.js' %}"></script>
     <script src="{% static 'external/js/jquery.js' %}"></script>
-    <script src="{% static 'internal/js/tests.js' %}"></script>
+    {% block scripts %}
+
+    {% endblock %}
 </head>
 <body>
 {% block content %}
     <a href="{% url 'psm25' %}">PSM25</a>
+    <a href="{% url 'tailor' %}">Tailor</a>
 {% endblock %}
 </body>
 </html>
