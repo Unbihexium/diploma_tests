@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'psychological_tests.apps.PsychologicalTestыConfig',
+    'psychological_tests.apps.PsychologicalTestsConfig',
 ]
 
 MIDDLEWARE = [
