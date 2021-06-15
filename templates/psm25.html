@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>PSM25</p>
+    {% for question in questions %}
+        <div class="{% if forloop.counter != 1 %}d-none{% endif %} answer-container" id="psm-{{ question.id }}">
+        <p>
+        {{ question.question_text }}
+        </p>
+        {% include 'psm_answer.html' %}
+        </div>
+    {% endfor %}
+{% endblock %}
