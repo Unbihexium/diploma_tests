@@ -12,7 +12,7 @@ from psychological_tests.models import PSM25Question, PSM25UserAnswer
 def main(request, *args, **kwargs):
     return render(request, 'base.html')
 
-
+# region psm
 class PSM25TestView(TemplateView):
 
     template_name = 'psm/psm25.html'
@@ -61,3 +61,4 @@ class PSM25ResultView(TemplateView):
         context['score'] = score
         context['message'] = f'Вы заработали {score}'
         return context
+# endregion
