@@ -20,7 +20,7 @@ from psychological_tests import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main),
+    path('', views.main, name='main'),
     path('psm25/', views.PSM25TestView.as_view(), name='psm25'),
     path('psm25-answer/', views.PSM25UserAnswerView.as_view(), name='psm25-answer'),
     path('psm25-result/', views.PSM25ResultView.as_view(), name='psm25-result'),
