@@ -21,6 +21,7 @@ from psychological_tests import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main, name='main'),
+    path('login/', views.authorization, name='login'),
     path('psm25/', views.PSM25TestView.as_view(), name='psm25'),
     path('answer/', views.UserAnswerView.as_view(), name='answer'),
     path('psm25-result/', views.PSM25ResultView.as_view(), name='psm25-result'),
