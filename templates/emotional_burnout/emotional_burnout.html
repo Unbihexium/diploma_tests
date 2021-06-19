@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block content %}
-    <p>Tailor</p>
+    <p>Emotional burnout</p>
     {% for question in questions %}
         <div class="{% if forloop.counter != 1 %}d-none{% endif %} answer-container" id="psm-{{ question.id }}"
         question_number="{{ forloop.counter }}">
             <p>
                 {{ question.question_text }}
             </p>
-            {% include 'tailor/tailor_answer.html' %}
+            {% include 'emotional_burnout/emotional_burnout_answer.html' %}
         </div>
     {% endfor %}
 {% endblock %}
@@ -17,7 +17,6 @@
 {% block scripts %}
     <script src="{% static 'internal/js/tests.js' %}"></script>
     <script>
-        let result_url =
-        {{ result_url }}
+        let result_url = {{ result_url }};
     </script>
 {% endblock %}

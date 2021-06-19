@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 
 from psychological_tests.forms import LoginForm
 
-from psychological_tests.models import TailorQuestion, PSM25Question, UserAnswer, UserTest
+from psychological_tests.models import TailorQuestion, PSM25Question, UserAnswer, UserTest, EmotionalBurnoutResult, \
+    EmotionalBurnoutQuestion
 
 
 @login_required
@@ -82,7 +83,7 @@ class UserAnswerView(View):
                 test_attempt.save()
 
             return JsonResponse({'status': 'success'})
-        except Exception:
+        except Exception as e:
             return JsonResponse({'status': 'Error'}, status=400)
 
 
@@ -146,4 +147,36 @@ class TailorResultView(TemplateView):
 
         context['score'] = score
         context['message'] = f'Вы заработали {score}'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class EmotionalBurnoutTestView(BaseSessionView):
+
+    template_name = 'emotional_burnout/emotional_burnout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        self.request.session['test_id'] = UserTest.objects.create(test_type=UserTest.EMOTIONAL_BURNOUT_TEST,
+                                                                  user=self.request.user).id
+
+        context['questions'] = EmotionalBurnoutQuestion.objects.all()
+        context['result_url'] = reverse('emotional-burnout-result')
+
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class EmotionalBurnoutResultView(TemplateView):
+    template_name = 'tailor/tailor_result.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user_test = UserTest.objects.get(id=self.request.session['test_id'])
+        score = user_test.get_test_result()
+
+        context['score'] = score.self_dissatisfaction
+        context['message'] = f'Вы заработали {score.self_dissatisfaction}'
         return context

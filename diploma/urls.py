@@ -27,5 +27,7 @@ urlpatterns = [
     path('psm25-result/', views.PSM25ResultView.as_view(), name='psm25-result'),
     path('tailor/', views.TailorTestView.as_view(), name='tailor'),
     path('tailor-result/', views.TailorResultView.as_view(), name='tailor-result'),
+    path('em-burnout/', views.EmotionalBurnoutTestView.as_view(), name='emotional-burnout'),
+    path('em-burnout-result/', views.EmotionalBurnoutResultView.as_view(), name='emotional-burnout-result'),
 
 ]
