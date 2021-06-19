@@ -12,6 +12,7 @@
         }
     </script>
     <link href="{% static 'external/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'internal/css/main.css' %}" rel="stylesheet">
     <script src="{% static 'external/js/bootstrap.js' %}"></script>
     <script src="{% static 'external/js/jquery.js' %}"></script>
     {% block scripts %}
@@ -19,10 +20,18 @@
     {% endblock %}
 </head>
 <body>
-{% block content %}
+<header class="header">
+    Header
+</header>
+<main>
+    {% block content %}
     <a href="{% url 'psm25' %}">PSM25</a>
     <a href="{% url 'tailor' %}">Tailor</a>
     <a href="{% url 'emotional-burnout' %}">Burnout</a>
 {% endblock %}
+</main>
+<footer class="footer">
+    Footer
+</footer>
 </body>
 </html>
