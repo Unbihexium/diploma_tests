@@ -2,10 +2,26 @@
 {% load static %}
 
 {% block content %}
-    <input type="text" id="username"/>
-    <input type="password" id="password"/>
-    <button id="loginButton">Авторизоваться</button>
-
+    <div class="text-center d-flex h-100">
+        <div id="login-container" class="m-auto">
+            <form class="card" onclick="">
+                <div class="card-body">
+                    <h4>
+                        Вход на сайт тестирования
+                    </h4>
+                </div>
+                <div class="form-row ms-2 me-2 mt-1">
+                    <input class="form-control" type="text" id="username" placeholder="Логин"/>
+                </div>
+                <div class="form-row ms-2 me-2 mt-1">
+                    <input class="form-control" type="password" id="password" placeholder="Пароль"/>
+                </div>
+                <div class="form-row ms-2 me-2 mt-1 mb-3 ">
+                    <button id="buttonLogin" class="form-control" id="loginButton">Авторизоваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

@@ -1,6 +1,7 @@
 $(document).ready(function (){
-    $('#loginButton').click(
+    $('#buttonLogin').click(
         function (e) {
+            e.preventDefault();
             let username =$('#username').val();
             let password =$('#password').val();
 

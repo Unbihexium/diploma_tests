@@ -21,10 +21,12 @@ header {
 }
 
 main {
-    margin-top: 90px;
+    margin-top: 90px !important;
     height: calc(100vh - 90px);
     background-image: url('/static/img/background.jpg');
     background-size: cover;
+    background-origin: content-box;
+    background-position: 50% 50%
 }
 
 footer {
@@ -41,4 +43,13 @@ footer > h1 {
     text-align: center;
     margin-top: 10px;
 
+}
+
+#login-container {
+    width: 500px;
+}
+
+#buttonLogin {
+    background-color: green;
+    color: black;
 }

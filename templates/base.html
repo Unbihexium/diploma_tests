@@ -21,6 +21,7 @@
 </head>
 <body>
     <header class="header">
+        <M
         <div class="row row-cols-2 p-3 pe-auto">
             <div class="logo-container">
                 <img src="{% static 'img/logo.png' %}" width="70" height="60"/>
@@ -30,12 +31,15 @@
             </div>
         </div>
     </header>
-    <main>
-        {% block content %}
-        <a href="{% url 'psm25' %}">PSM25</a>
-        <a href="{% url 'tailor' %}">Tailor</a>
-        <a href="{% url 'emotional-burnout' %}">Burnout</a>
-    {% endblock %}
+    <main class="row">
+
+        <div class="container">
+            {% block content %}
+                <a href="{% url 'psm25' %}">PSM25</a>
+                <a href="{% url 'tailor' %}">Tailor</a>
+                <a href="{% url 'emotional-burnout' %}">Burnout</a>
+            {% endblock %}
+        </div>
     </main>
     <footer class="align-content-center">
         <h1 class="w-100">
