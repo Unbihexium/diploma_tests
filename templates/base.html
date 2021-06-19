@@ -20,18 +20,27 @@
     {% endblock %}
 </head>
 <body>
-<header class="header">
-    Header
-</header>
-<main>
-    {% block content %}
-    <a href="{% url 'psm25' %}">PSM25</a>
-    <a href="{% url 'tailor' %}">Tailor</a>
-    <a href="{% url 'emotional-burnout' %}">Burnout</a>
-{% endblock %}
-</main>
-<footer class="footer">
-    Footer
-</footer>
+    <header class="header">
+        <div class="row row-cols-2 p-3 pe-auto">
+            <div class="logo-container">
+                <img src="{% static 'img/logo.png' %}" width="70" height="60"/>
+                <h2 class="mt-2 green-text">
+                    ДВГУПС
+                </h2>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        <a href="{% url 'psm25' %}">PSM25</a>
+        <a href="{% url 'tailor' %}">Tailor</a>
+        <a href="{% url 'emotional-burnout' %}">Burnout</a>
+    {% endblock %}
+    </main>
+    <footer class="align-content-center">
+        <h1 class="w-100">
+            ПСИХОЛОГИЧЕСКИЙ ЦЕНТР ДВГУПС 2021
+        </h1>
+    </footer>
 </body>
 </html>
