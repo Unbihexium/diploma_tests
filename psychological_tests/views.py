@@ -122,12 +122,11 @@ class PSM25ResultView(TemplateView):
 class TailorTestView(BaseSessionView):
     template_name = 'tailor/tailor.html'
 
-    def dispatch(self, *args, **kwargs):
-        # self.request.COOKIES['test'] = 'tailor'
-        return super().dispatch(*args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        self.request.session['test_id'] = UserTest.objects.create(test_type=UserTest.TAILOR_TEST,
+                                                                  user=self.request.user).id
 
         context['questions'] = TailorQuestion.objects.all()
         context['result_url'] = reverse('tailor-result')
@@ -139,17 +138,12 @@ class TailorTestView(BaseSessionView):
 class TailorResultView(TemplateView):
     template_name = 'tailor/tailor_result.html'
 
-    scored_answer = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1',
-                     '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1',
-                     '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', ]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # user_score = 0
-        # user_answers = UserAnswer.objects.filter(test_id=self.request.COOKIES['test_id'])
-        # for key, value in enumerate(user_answers):
-        #     if value.score == self.scored_answer[key]:
-        #         user_score += 1
-        # context['message'] = f'Твой балл {user_score}'
+
+        user_test = UserTest.objects.get(id=self.request.session['test_id'])
+        score = user_test.get_test_result().score
+
+        context['score'] = score
+        context['message'] = f'Вы заработали {score}'
         return context

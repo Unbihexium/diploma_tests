@@ -4,7 +4,8 @@
 {% block content %}
     <p>PSM25</p>
     {% for question in questions %}
-        <div class="{% if forloop.counter != 1 %}d-none{% endif %} answer-container" id="psm-{{ question.id }}">
+        <div class="{% if forloop.counter != 1 %}d-none{% endif %} answer-container" id="psm-{{ question.id }}"
+        question_number="{{ forloop.counter }}">
             <p>
                 {{ question.question_text }}
             </p>

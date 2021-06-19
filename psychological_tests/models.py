@@ -55,26 +55,48 @@ class UserTest(models.Model):
             return None
         if self.test_type == self.PSM25_TEST:
             return PSM25TestResult.objects.get(result_uuid=self.test_uuid)
+        elif self.test_type == self.TAILOR_TEST:
+            return TailorTestResult.objects.get(result_uuid=self.test_uuid)
 
     def finish_test(self):
         if self.test_type == self.PSM25_TEST:
             self.finish_psm25()
         elif self.test_type == self.TAILOR_TEST:
-            return TailorQuestion.objects.all()
+            self.finish_tailor()
         elif self.test_type == self.EMOTIONAL_BURNOUT_TEST:
             return EmotionalBurnoutQuestion.objects.all()
 
+    def get_user_answers(self):
+        return UserAnswer.objects.filter(test_attempt=self)
+
     def finish_psm25(self):
-        user_answers = UserAnswer.objects.filter(test_attempt_id=self.id)
+        user_answers = self.get_user_answers()
 
         score = sum(map(lambda answer: answer.answer, user_answers))
         PSM25TestResult.objects.create(score=score, result_uuid=self.test_uuid)
+
+    scored_answer_for_tailor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ]
+
+    def finish_tailor(self):
+        user_answers = self.get_user_answers()
+
+        score_sum = 0
+
+        for answer in user_answers:
+            score_marker = self.scored_answer_for_tailor[answer.question_number - 1]
+            if score_marker == answer.answer:
+                score_sum += 1
+
+        TailorTestResult.objects.create(result_uuid=self.test_uuid, score=score_sum)
 
     def get_test_result(self):
         if self.test_type == self.PSM25_TEST:
             return PSM25TestResult.objects.get(result_uuid=self.test_uuid)
         elif self.test_type == self.TAILOR_TEST:
-            return TailorQuestion.objects.all()
+            return TailorTestResult.objects.get(result_uuid=self.test_uuid)
         elif self.test_type == self.EMOTIONAL_BURNOUT_TEST:
             return EmotionalBurnoutQuestion.objects.all()
 
@@ -88,4 +110,12 @@ class UserAnswer(models.Model):
 class PSM25TestResult(models.Model):
 
     score = models.PositiveIntegerField(verbose_name='', null=False, blank=False)
-    result_uuid = models.UUIDField(verbose_name='UUID результата (совпадает с UUID теста)', default=uuid4, null=False)
+    result_uuid = models.UUIDField(verbose_name='UUID результата (совпадает с UUID теста)', default=uuid4, unique=True,
+                                   null=False)
+
+
+class TailorTestResult(models.Model):
+
+    score = models.PositiveIntegerField(verbose_name='', null=False, blank=False)
+    result_uuid = models.UUIDField(verbose_name='UUID результата (совпадает с UUID теста)', default=uuid4, unique=True,
+                                   null=False)
