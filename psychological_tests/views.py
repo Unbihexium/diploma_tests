@@ -171,14 +171,44 @@ class EmotionalBurnoutTestView(BaseSessionView):
 
 @method_decorator(login_required, name='dispatch')
 class EmotionalBurnoutResultView(TemplateView):
-    template_name = 'tailor/tailor_result.html'
+    template_name = 'emotional_burnout/emotional_burnout_result.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         user_test = UserTest.objects.get(id=self.request.session['test_id'])
-        score = user_test.get_test_result()
+        result_object = user_test.get_test_result()
 
-        context['score'] = score.self_dissatisfaction
-        context['message'] = f'Вы заработали {score.self_dissatisfaction}'
+        context['score'] = result_object.self_dissatisfaction
+        context['message'] = f'Вы заработали {result_object.self_dissatisfaction}'
+        return context
+
+
+class TestResultView(TemplateView):
+
+    def get_template_names(self, *args, **kwargs):
+        test = UserTest.objects.get(test_uuid=self.kwargs.get('test_uuid'))
+        if test.test_type == UserTest.TAILOR_TEST:
+            return 'tailor/tailor_result.html'
+        elif test.test_type == UserTest.PSM25_TEST:
+            return 'psm/psm-results.html'
+        elif test.test_type == UserTest.EMOTIONAL_BURNOUT_TEST:
+            return 'emotional_burnout/emotional_burnout_result.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        test = UserTest.objects.get(test_uuid=self.kwargs.get('test_uuid'))
+        result_object = test.get_test_result()
+
+        # TODO: Сюда запихнешь данные из контекстов соответстующих страниц результатов
+        if test.test_type == UserTest.TAILOR_TEST:
+            context['score'] = result_object.score
+            context['message'] = f'Вы заработали {result_object.score}'
+        elif test.test_type == UserTest.PSM25_TEST:
+            context['score'] = result_object.score
+            context['message'] = f'Вы заработали {result_object.score}'
+        elif test.test_type == UserTest.EMOTIONAL_BURNOUT_TEST:
+            context['score'] = result_object.self_dissatisfaction
+            context['message'] = f'Вы заработали {result_object.self_dissatisfaction}'
         return context

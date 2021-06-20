@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth.views import LogoutView
 
 from psychological_tests import views
@@ -31,5 +31,5 @@ urlpatterns = [
     path('tailor-result/', views.TailorResultView.as_view(), name='tailor-result'),
     path('em-burnout/', views.EmotionalBurnoutTestView.as_view(), name='emotional-burnout'),
     path('em-burnout-result/', views.EmotionalBurnoutResultView.as_view(), name='emotional-burnout-result'),
-
+    path('test-result/<uuid:test_uuid>/', views.TestResultView.as_view(), name='test-result'),
 ]
