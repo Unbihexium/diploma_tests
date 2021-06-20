@@ -1,8 +1,12 @@
 $(document).ready(function (){
-    $('.answer').click(
+    $('.next-question').click(
         function (e) {
-            let $this = $(this);
-            let container = $this.parent('.answer-container');
+            e.preventDefault();
+            let answer_container = $('.answer-container').not('.d-none');
+            let checked_answer = answer_container.find('.form-check-input:checked');
+            if (checked_answer.length == 0) {
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 url: '/answer/',
@@ -10,12 +14,12 @@ $(document).ready(function (){
                     request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                 },
                 data: {
-                    'score': $this.attr('score'),
-                    'question_number': container.attr('question_number')
+                    'score': checked_answer.attr('score'),
+                    'question_number': answer_container.attr('question_number')
                 },
                 success: function () {
-                    container.addClass('d-none');
-                    let nextContainer = container.next();
+                    answer_container.addClass('d-none');
+                    let nextContainer = answer_container.next('.answer-container');
                     if (nextContainer.length == 1) {
                         nextContainer.removeClass('d-none');
                     } else {
@@ -26,6 +30,18 @@ $(document).ready(function (){
                     console.log('failure');
                 }
             })
+        }
+    )
+
+    $('.previous-question').click(
+        function (e) {
+            e.preventDefault();
+            let answer_container = $('.answer-container').not('.d-none');
+            answer_container.addClass('d-none');
+            let prev_container = answer_container.prev('.answer-container');
+            if (prev_container.length == 1) {
+                prev_container.removeClass('d-none');
+            }
         }
     )
 })

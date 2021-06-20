@@ -71,11 +71,13 @@ class UserAnswerView(View):
         try:
             test_attempt = UserTest.objects.get(id=self.request.session['test_id'])
             question_number = int(self.request.POST.get('question_number'))
-            UserAnswer.objects.create(
+
+            user_answer, _ = UserAnswer.objects.get_or_create(
                 test_attempt=test_attempt,
-                answer=int(self.request.POST.get('score', 0)),
                 question_number=question_number
             )
+            user_answer.answer = int(self.request.POST.get('score', 0))
+            user_answer.save()
 
             if test_attempt.get_question_by_type().count() == question_number:
                 test_attempt.finish_test()

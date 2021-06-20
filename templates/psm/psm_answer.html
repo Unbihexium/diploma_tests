@@ -1,5 +1,9 @@
-{% for number in '12345678'|make_list %}
-<div class="btn btn-primary answer" score="{{ number }}">
-    {{ number }}
+<div class="row row-cols-auto justify-content-center">
+    {% for number in '12345678'|make_list %}
+        <div class="form-check">
+            <input autocomplete="off" class="form-check-input" type="radio" name="question-{{ question_number }}" score="{{ number }}">
+            <label class="form-check-label">{{ number }}</label>
+        </div>
+
+    {% endfor%}
 </div>
-{% endfor%}
