@@ -291,8 +291,71 @@ class EmotionalBurnoutResult(models.Model):
 
     def get_sum_for_resistance(self):
         return self.inappropriate_response + self.emotional_disorientation + self.emotion_economy + \
-                self.professional_duties_reduction
+               self.professional_duties_reduction
 
     def get_sum_for_exhaustion(self):
         return self.emotional_deficit + self.emotional_detachment + self.personal_detachment + \
-            self.psychosomatic_and_psychovegetative_disorders
+               self.psychosomatic_and_psychovegetative_disorders
+
+    def get_stage_status(self, score):
+        if score <= 36:
+            return 'Стадия не сформировалась.'
+        elif score <= 60:
+            return 'В стадии формирования.'
+        else:
+            return 'Стадия сформировалась.'
+
+    def get_message_for_stress(self):
+        return self.get_stage_status(self.get_sum_for_stress())
+
+    def get_message_for_resistance(self):
+        return self.get_stage_status(self.get_sum_for_resistance())
+
+    def get_message_for_exhaustion(self):
+        return self.get_stage_status(self.get_sum_for_exhaustion())
+
+    def get_symptom_status(self, score):
+        if score < 10:
+            return 'Симптом не сложился'
+        elif score < 16:
+            return 'Складывающийся симптом'
+        elif score < 20:
+            return 'Симптом сложился'
+        else:
+            return 'Симптом сложился. Доминирующий симптом.'
+
+    def get_message_for_traumatic_circumstance(self):
+        return self.get_symptom_status(self.traumatic_circumstance)
+
+    def get_message_for_self_dissatisfaction(self):
+        return self.get_symptom_status(self.self_dissatisfaction)
+
+    def get_message_for_depression(self):
+        return self.get_symptom_status(self.depression)
+
+    def get_message_for_caged(self):
+        return self.get_symptom_status(self.caged)
+
+    def get_message_for_inappropriate_response(self):
+        return self.get_symptom_status(self.inappropriate_response)
+
+    def get_message_for_emotional_disorientation(self):
+        return self.get_symptom_status(self.emotional_disorientation)
+
+    def get_message_for_emotion_economy(self):
+        return self.get_symptom_status(self.emotion_economy)
+
+    def get_message_for_professional_duties_reduction(self):
+        return self.get_symptom_status(self.professional_duties_reduction)
+
+    def get_message_for_emotional_deficit(self):
+        return self.get_symptom_status(self.emotional_deficit)
+
+    def get_message_for_emotional_detachment(self):
+        return self.get_symptom_status(self.emotional_detachment)
+
+    def get_message_for_personal_detachment(self):
+        return self.get_symptom_status(self.personal_detachment)
+
+    def get_message_for_psychosomatic_and_psychovegetative_disorders(self):
+        return self.get_symptom_status(self.psychosomatic_and_psychovegetative_disorders)

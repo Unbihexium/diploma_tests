@@ -208,7 +208,7 @@ class TestResultView(TemplateView):
 
         test = UserTest.objects.get(test_uuid=self.kwargs.get('test_uuid'))
         result_object = test.get_test_result()
-
+        context['result_object'] = result_object
         # TODO: Сюда запихнешь данные из контекстов соответстующих страниц результатов
         if test.test_type == UserTest.TAILOR_TEST:
             score = result_object.score
