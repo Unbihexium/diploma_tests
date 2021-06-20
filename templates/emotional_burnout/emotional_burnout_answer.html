@@ -1,6 +1,10 @@
-<div class="btn btn-primary answer" score="1">
-    +
-</div>
-<div class="btn btn-primary answer" score="0">
-    -
+<div class="row row-cols-auto justify-content-center">
+    <div class="form-check">
+        <input autocomplete="off" class="form-check-input" type="radio" name="question-{{ question_number }}" score="1">
+        <label class="form-check-label">+</label>
+    </div>
+    <div class="form-check">
+        <input autocomplete="off" class="form-check-input" type="radio" name="question-{{ question_number }}" score="0">
+        <label class="form-check-label">-</label>
+    </div>
 </div>

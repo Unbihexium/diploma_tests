@@ -2,22 +2,30 @@
 {% load static %}
 
 {% block content %}
-    <p>Tailor</p>
-    {% for question in questions %}
-        <div class="{% if forloop.counter != 1 %}d-none{% endif %} answer-container" id="psm-{{ question.id }}"
-        question_number="{{ forloop.counter }}">
-            <p>
-                {{ question.question_text }}
-            </p>
-            {% include 'tailor/tailor_answer.html' %}
+    <div class="text-center bg-white m-0 full-height">
+        <h2 class="h3 pt-2 border-bottom">
+            СКЛОННОСТЬ К РАЗВИТИЮ СТРЕССА
+        </h2>
+        {% for question in questions %}
+            <div class="{% if forloop.counter != 1 %}d-none{% endif %} answer-container h4 mt-4" id="psm-{{ question.id }}"
+            question_number="{{ forloop.counter }}">
+                <p>
+                    {{ question.question_text }}
+                </p>
+                {% include 'tailor/tailor_answer.html' with question_number=forloop.counter %}
+            </div>
+        {% endfor %}
+        <div class="row row-cols-2 m-0">
+            <button class="m-auto w-25 btn btn-success previous-question">Назад</button>
+            <button class="m-auto w-25 btn btn-success next-question">Вперед</button>
         </div>
-    {% endfor %}
+    </div>
+
 {% endblock %}
 
 {% block scripts %}
     <script src="{% static 'internal/js/tests.js' %}"></script>
     <script>
-        let result_url =
-        {{ result_url }}
+        let result_url = {{ result_url }};
     </script>
 {% endblock %}
