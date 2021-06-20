@@ -1,7 +1,8 @@
 from django import forms
 
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+
+from psychological_tests.models import UserExtended
 
 
 class LoginForm(forms.ModelForm):
@@ -21,6 +22,6 @@ class LoginForm(forms.ModelForm):
             raise forms.ValidationError('Вам закрыт доступ к сайту!', code='access_denied')
 
     class Meta:
-        model = User
+        model = UserExtended
         fields = ['username', 'password']
 
