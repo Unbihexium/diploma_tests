@@ -57,10 +57,13 @@ class PSM25TestView(BaseSessionView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.request.session['test_id'] = UserTest.objects.create(test_type=UserTest.PSM25_TEST,
-                                                                  user=self.request.user).id
+
+        user_test = UserTest.objects.create(test_type=UserTest.PSM25_TEST, user=self.request.user)
+
+        self.request.session['test_id'] =  user_test.id
+
         context['questions'] = PSM25Question.objects.all()
-        context['result_url'] = reverse('psm25-result')
+        context['result_url'] = reverse('test-result', kwargs={'test_uuid': user_test.test_uuid})
 
         return context
 
@@ -129,11 +132,11 @@ class TailorTestView(BaseSessionView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        self.request.session['test_id'] = UserTest.objects.create(test_type=UserTest.TAILOR_TEST,
-                                                                  user=self.request.user).id
+        user_test = UserTest.objects.create(test_type=UserTest.TAILOR_TEST, user=self.request.user)
+        self.request.session['test_id'] = user_test.id
 
         context['questions'] = TailorQuestion.objects.all()
-        context['result_url'] = reverse('tailor-result')
+        context['result_url'] = reverse('user-result', kwargs={'test_uuid': user_test.test_uuid})
 
         return context
 
@@ -162,11 +165,11 @@ class EmotionalBurnoutTestView(BaseSessionView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        self.request.session['test_id'] = UserTest.objects.create(test_type=UserTest.EMOTIONAL_BURNOUT_TEST,
-                                                                  user=self.request.user).id
+        user_test = UserTest.objects.create(test_type=UserTest.EMOTIONAL_BURNOUT_TEST, user=self.request.user)
+        self.request.session['test_id'] = user_test.id
 
         context['questions'] = EmotionalBurnoutQuestion.objects.all()
-        context['result_url'] = reverse('emotional-burnout-result')
+        context['result_url'] = reverse('test-result', kwargs={'test_uuid': user_test.test_uuid})
 
         return context
 
@@ -232,6 +235,6 @@ class UserResultView(TemplateView):
 
         context['user'] = UserExtended.objects.get(id=self.kwargs.get('user_id'))
 
-        context['user_tests'] = UserTest.objects.filter(user=context['user'])
+        context['user_tests'] = UserTest.objects.filter(user=context['user'], finished=True)
 
         return context
