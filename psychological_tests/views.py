@@ -209,8 +209,17 @@ class TestResultView(TemplateView):
 
         # TODO: Сюда запихнешь данные из контекстов соответстующих страниц результатов
         if test.test_type == UserTest.TAILOR_TEST:
-            context['score'] = result_object.score
-            context['message'] = f'Вы заработали {result_object.score}'
+            score = result_object.score
+            context['score'] = score
+            stress_level = 0
+            if 15 <= score < 25:
+                stress_level = 1
+            elif 25 <= score < 40:
+                stress_level = 2
+            elif 40 <= score <= 50:
+                stress_level = 3
+            context['stress_level'] = stress_level
+
         elif test.test_type == UserTest.PSM25_TEST:
             context['score'] = result_object.score
             context['message'] = f'Вы заработали {result_object.score}'
