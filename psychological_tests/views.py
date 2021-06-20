@@ -116,6 +116,7 @@ class PSM25ResultView(TemplateView):
 
         context['score'] = score
         context['message'] = f'Вы заработали {score}'
+        context['link'] = reverse('test-result', kwargs={'test_uuid': user_test.test_uuid})
         return context
 
 
@@ -149,6 +150,7 @@ class TailorResultView(TemplateView):
 
         context['score'] = score
         context['message'] = f'Вы заработали {score}'
+        context['link'] = reverse('test-result', kwargs={'test_uuid': user_test.test_uuid})
         return context
 
 
@@ -181,6 +183,7 @@ class EmotionalBurnoutResultView(TemplateView):
 
         context['score'] = result_object.self_dissatisfaction
         context['message'] = f'Вы заработали {result_object.self_dissatisfaction}'
+        context['link'] = reverse('test-result',  kwargs={'test_uuid': user_test.test_uuid})
         return context
 
 

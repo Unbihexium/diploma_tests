@@ -16,6 +16,9 @@
             </li>
         </ul>
         <button class="btn btn-success" onclick="window.location.href='{% url 'main' %}'">Главная</button>
+        {% if link %}
+            <a href="{{ link }}">Постоянная ссылка на результат теста</a>
+        {% endif %}
     </div>
 
 {% endblock %}
