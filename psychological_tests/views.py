@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from psychological_tests.forms import LoginForm
 
 from psychological_tests.models import TailorQuestion, PSM25Question, UserAnswer, UserTest, EmotionalBurnoutResult, \
-    EmotionalBurnoutQuestion
+    EmotionalBurnoutQuestion, UserExtended
 
 
 @login_required
@@ -33,7 +33,7 @@ def authorization(request):
     try:
         response = login_form.is_valid()
         if response:
-            user = User.objects.get(username=data['username'])
+            user = UserExtended.objects.get(username=data['username'])
             login(request, user)
             return JsonResponse({'status': 'success'}, safe=False)
         else:

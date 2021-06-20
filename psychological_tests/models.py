@@ -2,8 +2,12 @@ from uuid import uuid4
 
 from django.db import models
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
+
+
+class UserExtended(AbstractUser):
+    pass
 
 
 class BasicQuestion(models.Model):
@@ -37,7 +41,7 @@ class UserTest(models.Model):
         (EMOTIONAL_BURNOUT_TEST, 'Emotional Burnout test')
     )
 
-    user = models.ForeignKey(User, verbose_name='Пользователь', null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserExtended, verbose_name='Пользователь', null=False, on_delete=models.CASCADE)
     test_type = models.PositiveBigIntegerField(verbose_name='Тип теста', blank=False, null=False, choices=TESTS)
     finished = models.BooleanField(verbose_name='Попытка завершена', default=False)
     test_uuid = models.UUIDField(verbose_name='UUID попытки теста', default=uuid4, null=False)
