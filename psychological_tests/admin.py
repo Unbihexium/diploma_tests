@@ -13,9 +13,9 @@ class UserExtendedAdmin(admin.ModelAdmin):
     class Media:
         js = ('external/js/jquery.js', 'admin/user_admin.js',)
 
-    list_display = ('username', )
+    list_display = ('username', 'fio', 'group_code')
 
-    fields = ('username', 'get_update_password', 'go_to_users_tests')
+    fields = ('username', 'get_update_password', 'go_to_users_tests', 'fio', 'group_code')
 
     readonly_fields = ('get_update_password', 'go_to_users_tests')
 
