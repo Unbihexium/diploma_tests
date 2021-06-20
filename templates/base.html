@@ -33,11 +33,34 @@
     <main>
         <div class="container">
             {% block content %}
-                <div class="text-center col-8 h-100 bg-white m-0">
-                    <div class="row">
-                        <a href="{% url 'psm25' %}">PSM25</a>
-                        <a href="{% url 'tailor' %}">Tailor</a>
-                        <a href="{% url 'emotional-burnout' %}">Burnout</a>
+                <div class="text-center bg-white m-0 full-height">
+                    <div class="row m-0">
+                        <div class="mt-5 border-bottom pb-5">
+                            <h1>
+                                Пройти тест
+                            </h1>
+                        </div>
+                        <div class="mt-5 border-bottom">
+                            <h2>
+                                ШКАЛА ПСИХОЛОГИЧЕСКОГО СТРЕССА PSM-25
+                            </h2>
+                            <button onclick="window.location.href = '{% url 'psm25' %}'"
+                                    type="button" class="btn btn-success w-25 mb-3">Пройти</button>
+                        </div>
+                        <div class="mt-5 border-bottom">
+                            <h2>
+                                СКЛОННОСТЬ К РАЗВИТИЮ СТРЕССА
+                            </h2>
+                            <button onclick="window.location.href = '{% url 'tailor' %}'"
+                                    type="button" class="btn btn-success w-25 mb-3">Пройти</button>
+                        </div>
+                        <div class="mt-5 border-bottom">
+                            <h2>
+                                ПСИХОЛОГИЧЕСКОЕ ВЫГОРАНИЕ
+                            </h2>
+                            <button onclick="window.location.href = '{% url 'emotional-burnout' %}'"
+                                    type="button" class="btn btn-success w-25 mb-3">Пройти</button>
+                        </div>
                     </div>
 
                 </div>
