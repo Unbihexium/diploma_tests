@@ -28,6 +28,12 @@
                     ДВГУПС
                 </h2>
             </div>
+            {% if not request.user.is_anonymous %}
+                <div class="row row-cols-auto text-end mt-2 justify-content-end">
+                    <p class="mt-1 h2 green-text">{{ request.user.username }}</p>
+                    <button class="w-25 btn btn-success" onclick="window.location.href='{% url 'logout' %}'">Выход</button>
+                </div>
+            {% endif %}
         </div>
     </header>
     <main>
