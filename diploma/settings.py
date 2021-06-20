@@ -134,7 +134,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/login/'
 
 ADMIN_REORDER = (
-    {'app': 'psychological_tests', 'models': 'User'},
+    {'app': 'psychological_tests', 'label': 'Пользователи',
+        'models': (
+            {'model': 'psychological_tests.UserExtended', 'label': 'Пользователи'},
+        ),
+    },
 )
 
 AUTH_USER_MODEL = 'psychological_tests.UserExtended'
