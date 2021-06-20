@@ -7,7 +7,9 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class UserExtended(AbstractUser):
-    pass
+
+    fio = models.CharField(verbose_name='ФИО', max_length=500, null=False, blank=True)
+    group_code = models.CharField(verbose_name='Код группы', max_length=500, null=False, blank=True)
 
 
 class BasicQuestion(models.Model):
