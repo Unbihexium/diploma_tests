@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.http.response import HttpResponse
 from django.urls import re_path
+from django.shortcuts import reverse
 
 from psychological_tests.models import UserExtended
 
@@ -14,9 +15,9 @@ class UserExtendedAdmin(admin.ModelAdmin):
 
     list_display = ('username', )
 
-    fields = ('username', 'get_update_password',)
+    fields = ('username', 'get_update_password', 'go_to_users_tests')
 
-    readonly_fields = ('get_update_password', )
+    readonly_fields = ('get_update_password', 'go_to_users_tests')
 
     def get_update_password(self, user):
         return mark_safe('<input type="button" value="Установить пароль пользователю (длина пароля строго 8 цифр!)" '
@@ -27,6 +28,7 @@ class UserExtendedAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super(UserExtendedAdmin, self).get_urls()
         new_urls = [re_path(r'^(?P<id>[0-9]+)/update_password/$', self.update_password)]
+
         return new_urls + urls
 
     def update_password(self, request, id):
@@ -43,3 +45,10 @@ class UserExtendedAdmin(admin.ModelAdmin):
             success = False
         return HttpResponse('Пароль обновлен - {}!'.format(password)) \
             if success else HttpResponse('Возникла ошибка при установке пароля')
+
+    def go_to_users_tests(self, user):
+        return mark_safe('<input type="button" value="Посмотреть все тесты пользователя" '
+                         'data-user-id="{}" id="show-user-button">'.format(user.id))
+
+    go_to_users_tests.allow_tags = True
+    go_to_users_tests.short_description = 'Перейти к тестам пользователя'

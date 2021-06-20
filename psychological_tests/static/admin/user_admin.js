@@ -20,5 +20,8 @@
                 }
             })}
         );
+        $("#show-user-button").click(function() {
+           window.location.href =  `/user-result/${$(this).attr('data-user-id')}/`
+        });
     });
 })(django.jQuery);
