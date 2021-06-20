@@ -37,9 +37,9 @@ $(document).ready(function (){
         function (e) {
             e.preventDefault();
             let answer_container = $('.answer-container').not('.d-none');
-            answer_container.addClass('d-none');
             let prev_container = answer_container.prev('.answer-container');
             if (prev_container.length == 1) {
+                answer_container.addClass('d-none');
                 prev_container.removeClass('d-none');
             }
         }
