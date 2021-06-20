@@ -1,6 +1,11 @@
 
 body {
     overflow-x: hidden;
+    background-image: url('/static/img/background.jpg');
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50% 50%;
+    background-attachment: fixed;
 }
 
 header {
@@ -12,39 +17,16 @@ header {
     width: 100%;
 }
 
+.wa-90 {
+    margin-top: 90px;
+}
+
 .logo-container {
     display: flex;
 }
 
 .green-text {
     color: green;
-}
-
-main {
-    margin-top: 90px !important;
-    height: calc(100vh - 90px);
-    background-image: url('/static/img/background.jpg');
-    background-size: cover;
-    background-origin: content-box;
-    background-position: 50% 50%;
-    z-index: -1000;
-    position: static;
-}
-
-footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0px;
-    height: 90px;
-    background-color: white;
-    z-index: 100;
-    box-shadow: 0px 0px 8px;
-}
-
-footer > h1 {
-    text-align: center;
-    margin-top: 10px;
-
 }
 
 #login-container {
@@ -59,3 +41,9 @@ footer > h1 {
 .full-height {
     height: calc(100vh - 180px);
 }
+
+footer {
+    height: 90px;
+    box-shadow: 0px 0px 8px;
+}
+

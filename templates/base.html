@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,11 +19,11 @@
 
     {% endblock %}
 </head>
-<body>
-    <header class="header">
-        <div class="row row-cols-2 p-3 pe-auto">
-            <div class="logo-container">
-                <img src="{% static 'img/logo.png' %}" width="70" height="60"/>
+<body class="d-flex flex-column h-100">
+<header class="header">
+    <div class="row row-cols-2 p-3 pe-auto">
+        <div class="logo-container">
+            <img src="{% static 'img/logo.png' %}" width="70" height="60"/>
                 <h2 class="mt-2 green-text">
                     ДВГУПС
                 </h2>
@@ -34,11 +34,11 @@
                     <button class="w-25 btn btn-success" onclick="window.location.href='{% url 'logout' %}'">Выход</button>
                 </div>
             {% endif %}
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            {% block content %}
+    </div>
+</header>
+<main class="flex-shrink-0 wa-90">
+    <div class="container">
+        {% block content %}
                 <div class="text-center bg-white m-0 full-height">
                     <div class="row m-0">
                         <div class="mt-5 border-bottom pb-5">
@@ -72,12 +72,15 @@
                 </div>
 
             {% endblock %}
-        </div>
-    </main>
-    <footer class="align-content-center">
-        <h1 class="w-100">
+    </div>
+</main>
+<footer class="footer mt-auto py-3 bg-white">
+    <div class="container">
+        <h1 class="w-100 text-center">
             ПСИХОЛОГИЧЕСКИЙ ЦЕНТР ДВГУПС 2021
         </h1>
-    </footer>
+    </div>
+
+</footer>
 </body>
 </html>

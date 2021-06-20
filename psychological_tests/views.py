@@ -138,7 +138,7 @@ class TailorTestView(BaseSessionView):
         self.request.session['test_id'] = user_test.id
 
         context['questions'] = TailorQuestion.objects.all()
-        context['result_url'] = reverse('user-result', kwargs={'test_uuid': user_test.test_uuid})
+        context['result_url'] = reverse('test-result', kwargs={'test_uuid': user_test.test_uuid})
 
         return context
 
