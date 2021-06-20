@@ -26,7 +26,8 @@ main {
     background-image: url('/static/img/background.jpg');
     background-size: cover;
     background-origin: content-box;
-    background-position: 50% 50%
+    background-position: 50% 50%;
+    z-index: -1000;
 }
 
 footer {

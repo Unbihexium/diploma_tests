@@ -4,6 +4,7 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import reverse
 
 
 class UserExtended(AbstractUser):
@@ -47,6 +48,17 @@ class UserTest(models.Model):
     test_type = models.PositiveBigIntegerField(verbose_name='Тип теста', blank=False, null=False, choices=TESTS)
     finished = models.BooleanField(verbose_name='Попытка завершена', default=False)
     test_uuid = models.UUIDField(verbose_name='UUID попытки теста', default=uuid4, null=False)
+
+    def get_name(self):
+        if self.test_type == self.PSM25_TEST:
+            return 'ШКАЛА ПСИХОЛОГИЧЕСКОГО СТРЕССА PSM-25'
+        elif self.test_type == self.TAILOR_TEST:
+            return 'СКЛОННОСТЬ К РАЗВИТИЮ СТРЕССА'
+        elif self.test_type == self.EMOTIONAL_BURNOUT_TEST:
+            return 'ПСИХОЛОГИЧЕСКОЕ ВЫГОРАНИЕ'
+
+    def generate_link(self):
+        return reverse('test-result', kwargs={'test_uuid': self.test_uuid})
 
     def get_question_by_type(self):
         if self.test_type == self.PSM25_TEST:

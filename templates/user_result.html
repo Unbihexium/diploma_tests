@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="text-center bg-white m-0 full-height">
+        <h2 class="h3 pt-2 border-bottom pb-2">
+            Пользователь {{ user.username }}
+        </h2>
+        {% for user_test in user_tests %}
+            <div class="row mt-2 border-bottom m-0 pb-2">
+                <div class="row row-cols-2">
+                    <h1 class="mt-2 h6">{{ user_test.get_name }}</h1>
+                    <button class="btn btn-success w-25"
+                    onclick="window.location.href = '{{ user_test.generate_link }}';"
+                    href="{{ user_test.generate_link }}">Перейти к просмотру результата</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'internal/js/tests.js' %}"></script>
+    <script>
+        let result_url = {{ result_url }};
+    </script>
+{% endblock %}

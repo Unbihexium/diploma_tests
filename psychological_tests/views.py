@@ -1,10 +1,10 @@
 from django.shortcuts import render, reverse
 from django.views.generic import TemplateView, View
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotAllowed
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
-from django.contrib.auth.models import User
+
 
 
 from psychological_tests.forms import LoginForm
@@ -214,4 +214,24 @@ class TestResultView(TemplateView):
         elif test.test_type == UserTest.EMOTIONAL_BURNOUT_TEST:
             context['score'] = result_object.self_dissatisfaction
             context['message'] = f'Вы заработали {result_object.self_dissatisfaction}'
+        return context
+
+
+class UserResultView(TemplateView):
+
+    template_name = 'user_result.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_superuser:
+            raise HttpResponseForbidden
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserResultView, self).get_context_data(*args, **kwargs)
+
+        context['user'] = UserExtended.objects.get(id=self.kwargs.get('user_id'))
+
+        context['user_tests'] = UserTest.objects.filter(user=context['user'])
+
         return context

@@ -32,4 +32,5 @@ urlpatterns = [
     path('em-burnout/', views.EmotionalBurnoutTestView.as_view(), name='emotional-burnout'),
     path('em-burnout-result/', views.EmotionalBurnoutResultView.as_view(), name='emotional-burnout-result'),
     path('test-result/<uuid:test_uuid>/', views.TestResultView.as_view(), name='test-result'),
+    path('user-result/<int:user_id>/', views.UserResultView.as_view(), name='user-result'),
 ]
