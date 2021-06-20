@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="text-start bg-white m-0 full-height ps-5 pt-5">
+        <p>{{ message }}</p>
+        <p>Шкала оценок: </p>
+        <ul>
+            <li>
+                меньше 99 баллов – низкий уровень стресса;
+            </li>
+            <li>
+                100-125 баллов – средний уровень стресса;
+            </li>
+            <li>
+                больше 125 баллов – высокий уровень стресса.
+            </li>
+        </ul>
+        <button class="btn btn-success" onclick="window.location.href='{% url 'main' %}'">Главная</button>
+    </div>
 
-    <p>{{ message }}</p>
-    <p>Шкала оценок: </p>
-    <ul>
-        <li>
-            меньше 99 баллов – низкий уровень стресса;
-        </li>
-        <li>
-            100-125 баллов – средний уровень стресса;
-        </li>
-        <li>
-            больше 125 баллов – высокий уровень стресса.
-        </li>
-    </ul>
-    <a href="{% url 'main' %}">Главная</a>
 {% endblock %}
