@@ -119,7 +119,9 @@ class PSM25ResultView(TemplateView):
 
         context['score'] = score
         context['message'] = f'Вы заработали {score}'
+
         context['link'] = reverse('test-result', kwargs={'test_uuid': user_test.test_uuid})
+        context['high_stress'] = score > 99
         return context
 
 
@@ -183,7 +185,7 @@ class EmotionalBurnoutResultView(TemplateView):
 
         user_test = UserTest.objects.get(id=self.request.session['test_id'])
         result_object = user_test.get_test_result()
-
+        context['result_object'] = result_object
         context['score'] = result_object.self_dissatisfaction
         context['message'] = f'Вы заработали {result_object.self_dissatisfaction}'
         context['link'] = reverse('test-result',  kwargs={'test_uuid': user_test.test_uuid})
@@ -221,11 +223,13 @@ class TestResultView(TemplateView):
             context['stress_level'] = stress_level
 
         elif test.test_type == UserTest.PSM25_TEST:
+            context['high_stress'] = result_object.score > 99
             context['score'] = result_object.score
             context['message'] = f'Вы заработали {result_object.score}'
         elif test.test_type == UserTest.EMOTIONAL_BURNOUT_TEST:
+
             context['score'] = result_object.self_dissatisfaction
-            context['message'] = f'Вы заработали {result_object.self_dissatisfaction}'
+            context['message'] = f' '
         return context
 
 

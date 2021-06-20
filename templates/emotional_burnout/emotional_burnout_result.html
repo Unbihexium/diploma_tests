@@ -4,17 +4,41 @@
     <div class="text-start bg-white m-0 full-height ps-5 pt-5">
         <p>{{ message }}</p>
         <p>Шкала оценок: </p>
-        <ul>
-            <li>
-                меньше 99 баллов – низкий уровень стресса;
-            </li>
-            <li>
-                100-125 баллов – средний уровень стресса;
-            </li>
-            <li>
-                больше 125 баллов – высокий уровень стресса.
-            </li>
-        </ul>
+
+        <h1> СТАДИЯ НАПРЯЖЕНИЯ</h1>
+        <div> 
+            (тут надо получить message, в котором будет написано сформировалась стадия или нет или формируется)
+
+            Переживание психотравмирующих обстоятельств:  {{result_object.traumatic_circumstance}}
+            (после каждого симптома нужно написать сформировался ли симптом)
+
+            Неудовлетворенность собой: {{result_object.self_dissatisfaction}}
+            «Загнанность в клетку»: {{result_object.caged}}
+            Тревога и депрессия: {{result_object.depression}}
+
+
+
+            (в конце стадии выкатывается рекомендация, в том случае, если стадия сформировалась или формируется)
+
+        </div>
+        <h1>РЕЗИСТЕНЦИЯ</h1>
+
+        <div>
+            Неадекватное избирательное эмоциональное реагирование: {{result_object.inappropriate_response}}
+            Эмоционально-нравственная дезориентация: {{result_object.emotional_disorientation}}
+            Расширение сферы экономии эмоций: {{result_object.emotion_economy}}
+            Редукция профессиональных обязанностей: {{result_object.professional_duties_reduction}} 
+        </div>
+
+        
+        <h1>ИСТОЩЕНИЕ</h1>
+        <div> 
+            Эмоциональный дефицит:  {{result_object.emotional_deficit}}
+            Эмоциональная отстраненность: {{result_object.emotional_detachment}}
+            Личностная отстраненность (деперсонализация): {{result_object.personal_detachment}}
+            Психосоматические и психовегетативные нарушения: {{result_object.psychosomatic_and_psychovegetative_disorders}}
+        </div>
+        
         <button class="btn btn-success" onclick="window.location.href='{% url 'main' %}'">Главная</button>
         {% if link %}
             <a href="{{ link }}">Постоянная ссылка на результат теста</a>
